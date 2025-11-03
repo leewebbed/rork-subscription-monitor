@@ -17,8 +17,6 @@ export default function AddClientScreen() {
   const [duration, setDuration] = useState<SubscriptionDuration>("ONE_MONTH");
   const [notes, setNotes] = useState<string>("");
 
-  const [amountPaid, setAmountPaid] = useState<string>("");
-
   const handleSubmit = () => {
     if (!name.trim()) {
       Alert.alert("Error", "Please enter client name");
@@ -50,8 +48,6 @@ export default function AddClientScreen() {
       subscriptionStartDate: subscriptionStartDate.getTime(),
       subscriptionDuration: duration,
       notes: notes.trim(),
-
-      amountPaid: amountPaid ? parseFloat(amountPaid) : undefined,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
@@ -70,8 +66,6 @@ export default function AddClientScreen() {
           setSubscriptionStartDate(new Date());
           setDuration("ONE_MONTH");
           setNotes("");
-
-          setAmountPaid("");
           router.push("/");
         }}
       ]
@@ -168,62 +162,56 @@ export default function AddClientScreen() {
 
         <Text style={styles.label}>Duration *</Text>
         <View style={styles.durationContainer}>
-          <View style={[styles.durationButtonWrapper, styles.durationButtonWrapperFirst]}>
-            <TouchableOpacity
+          <TouchableOpacity
+            style={[
+              styles.durationButton,
+              duration === "ONE_WEEK" && styles.durationButtonSelected,
+            ]}
+            onPress={() => setDuration("ONE_WEEK")}
+          >
+            <Text
               style={[
-                styles.durationButton,
-                duration === "ONE_WEEK" && styles.durationButtonSelected,
+                styles.durationButtonText,
+                duration === "ONE_WEEK" && styles.durationButtonTextSelected,
               ]}
-              onPress={() => setDuration("ONE_WEEK")}
             >
-              <Text
-                style={[
-                  styles.durationButtonText,
-                  duration === "ONE_WEEK" && styles.durationButtonTextSelected,
-                ]}
-              >
-                One Week
-              </Text>
-            </TouchableOpacity>
-          </View>
+              One Week
+            </Text>
+          </TouchableOpacity>
 
-          <View style={styles.durationButtonWrapper}>
-            <TouchableOpacity
+          <TouchableOpacity
+            style={[
+              styles.durationButton,
+              duration === "ONE_MONTH" && styles.durationButtonSelected,
+            ]}
+            onPress={() => setDuration("ONE_MONTH")}
+          >
+            <Text
               style={[
-                styles.durationButton,
-                duration === "ONE_MONTH" && styles.durationButtonSelected,
+                styles.durationButtonText,
+                duration === "ONE_MONTH" && styles.durationButtonTextSelected,
               ]}
-              onPress={() => setDuration("ONE_MONTH")}
             >
-              <Text
-                style={[
-                  styles.durationButtonText,
-                  duration === "ONE_MONTH" && styles.durationButtonTextSelected,
-                ]}
-              >
-                One Month
-              </Text>
-            </TouchableOpacity>
-          </View>
+              One Month
+            </Text>
+          </TouchableOpacity>
 
-          <View style={[styles.durationButtonWrapper, styles.durationButtonWrapperLast]}>
-            <TouchableOpacity
+          <TouchableOpacity
+            style={[
+              styles.durationButton,
+              duration === "ONE_YEAR" && styles.durationButtonSelected,
+            ]}
+            onPress={() => setDuration("ONE_YEAR")}
+          >
+            <Text
               style={[
-                styles.durationButton,
-                duration === "ONE_YEAR" && styles.durationButtonSelected,
+                styles.durationButtonText,
+                duration === "ONE_YEAR" && styles.durationButtonTextSelected,
               ]}
-              onPress={() => setDuration("ONE_YEAR")}
             >
-              <Text
-                style={[
-                  styles.durationButtonText,
-                  duration === "ONE_YEAR" && styles.durationButtonTextSelected,
-                ]}
-              >
-                One Year
-              </Text>
-            </TouchableOpacity>
-          </View>
+              One Year
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.label}>Notes (Optional)</Text>
@@ -235,18 +223,6 @@ export default function AddClientScreen() {
           placeholderTextColor="#9CA3AF"
           multiline
           numberOfLines={4}
-        />
-
-        <Text style={styles.sectionTitle}>Payment Details</Text>
-
-        <Text style={styles.label}>Amount Paid</Text>
-        <TextInput
-          style={styles.input}
-          value={amountPaid}
-          onChangeText={setAmountPaid}
-          placeholder="£0.00"
-          placeholderTextColor="#9CA3AF"
-          keyboardType="decimal-pad"
         />
 
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -338,18 +314,10 @@ const styles = StyleSheet.create({
   },
   durationContainer: {
     flexDirection: "row",
-  },
-  durationButtonWrapper: {
-    flex: 1,
-    marginHorizontal: 4,
-  },
-  durationButtonWrapperFirst: {
-    marginLeft: 0,
-  },
-  durationButtonWrapperLast: {
-    marginRight: 0,
+    gap: 12,
   },
   durationButton: {
+    flex: 1,
     backgroundColor: "#F3F4F6",
     paddingVertical: 12,
     borderRadius: 8,

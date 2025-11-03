@@ -12,9 +12,7 @@ export default function PrivacyScreen() {
 
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <View style={styles.sectionHeaderIcon}>
-            <Database size={24} color="#3B82F6" />
-          </View>
+          <Database size={24} color="#3B82F6" />
           <Text style={styles.sectionTitle}>Local Storage Only</Text>
         </View>
         <Text style={styles.sectionText}>
@@ -25,9 +23,7 @@ export default function PrivacyScreen() {
 
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <View style={styles.sectionHeaderIcon}>
-            <Lock size={24} color="#3B82F6" />
-          </View>
+          <Lock size={24} color="#3B82F6" />
           <Text style={styles.sectionTitle}>Complete Offline Operation</Text>
         </View>
         <Text style={styles.sectionText}>
@@ -38,9 +34,7 @@ export default function PrivacyScreen() {
 
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <View style={styles.sectionHeaderIcon}>
-            <Bell size={24} color="#3B82F6" />
-          </View>
+          <Bell size={24} color="#3B82F6" />
           <Text style={styles.sectionTitle}>Local Notifications</Text>
         </View>
         <Text style={styles.sectionText}>
@@ -109,10 +103,8 @@ const styles = StyleSheet.create({
   sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 12,
     marginBottom: 12,
-  },
-  sectionHeaderIcon: {
-    marginRight: 12,
   },
   sectionTitle: {
     fontSize: 18,

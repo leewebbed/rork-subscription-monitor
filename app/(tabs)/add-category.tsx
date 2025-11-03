@@ -81,22 +81,18 @@ export default function AddCategoryScreen() {
 
         <View style={styles.buttonRow}>
           {editingId && (
-            <View style={[styles.buttonWrapper, styles.buttonWrapperFirst]}>
-              <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
-                <Text style={styles.cancelButtonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          <View style={[styles.buttonWrapper, editingId ? styles.buttonWrapperLast : { marginLeft: 0, marginRight: 0 }]}>
-            <TouchableOpacity 
-              style={styles.submitButton} 
-              onPress={handleSubmit}
-            >
-              <Text style={styles.submitButtonText}>
-                {editingId ? "Update Category" : "Add Category"}
-              </Text>
+            <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
+              <Text style={styles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
-          </View>
+          )}
+          <TouchableOpacity 
+            style={[styles.submitButton, editingId && styles.submitButtonSmall]} 
+            onPress={handleSubmit}
+          >
+            <Text style={styles.submitButtonText}>
+              {editingId ? "Update Category" : "Add Category"}
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -117,7 +113,7 @@ export default function AddCategoryScreen() {
                 <TouchableOpacity onPress={() => handleEdit(item)} style={styles.iconButton}>
                   <Edit2 size={20} color="#3B82F6" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleDelete(item.id)} style={[styles.iconButton, { marginLeft: 12 }]}>
+                <TouchableOpacity onPress={() => handleDelete(item.id)} style={styles.iconButton}>
                   <Trash2 size={20} color="#EF4444" />
                 </TouchableOpacity>
               </View>
@@ -168,23 +164,18 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: "row",
+    gap: 12,
     marginTop: 20,
   },
-  buttonWrapper: {
-    flex: 1,
-    marginHorizontal: 6,
-  },
-  buttonWrapperFirst: {
-    marginLeft: 0,
-  },
-  buttonWrapperLast: {
-    marginRight: 0,
-  },
   submitButton: {
+    flex: 1,
     backgroundColor: "#3B82F6",
     padding: 16,
     borderRadius: 8,
     alignItems: "center",
+  },
+  submitButtonSmall: {
+    flex: 1,
   },
   submitButtonText: {
     color: "#FFFFFF",
@@ -192,6 +183,7 @@ const styles = StyleSheet.create({
     fontWeight: "600" as const,
   },
   cancelButton: {
+    flex: 1,
     backgroundColor: "#F3F4F6",
     padding: 16,
     borderRadius: 8,
@@ -241,6 +233,7 @@ const styles = StyleSheet.create({
   },
   categoryActions: {
     flexDirection: "row",
+    gap: 12,
   },
   iconButton: {
     padding: 4,

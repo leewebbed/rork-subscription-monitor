@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert, Linking } from "react-native";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert } from "react-native";
 import { useState, useMemo } from "react";
 import { useApp } from "@/contexts/AppContext";
 import { SortOption } from "@/types";
@@ -81,9 +81,7 @@ export default function HomeScreen() {
         <View style={styles.headerTop}>
           <Text style={styles.headerTitle}>Subscriptions</Text>
           <TouchableOpacity style={styles.sortButton} onPress={toggleSort}>
-            <View style={styles.sortButtonIcon}>
-              <ArrowUpDown size={18} color="#3B82F6" />
-            </View>
+            <ArrowUpDown size={18} color="#3B82F6" />
             <Text style={styles.sortButtonText}>
               Sort by {sortBy === "name" ? "Name" : "Expiry"}
             </Text>
@@ -113,9 +111,7 @@ export default function HomeScreen() {
               <View style={styles.cardHeader}>
                 <View style={styles.clientInfo}>
                   <View style={styles.nameRow}>
-                    <View style={styles.nameRowIcon}>
-                      <User size={16} color="#111827" />
-                    </View>
+                    <User size={16} color="#111827" />
                     <Text style={styles.clientName}>{item.name}</Text>
                   </View>
                   {category && (
@@ -132,62 +128,35 @@ export default function HomeScreen() {
               {isExpanded && (
                 <View style={styles.cardBody}>
                   {item.email && (
-                    <TouchableOpacity 
-                      style={styles.cardBodyItem}
-                      onPress={() => Linking.openURL(`mailto:${item.email}`)}
-                      activeOpacity={0.6}
-                    >
-                      <Text style={styles.contactText}>📧 <Text style={styles.contactLink}>{item.email}</Text></Text>
-                    </TouchableOpacity>
+                    <Text style={styles.contactText}>📧 {item.email}</Text>
                   )}
                   {item.phone && (
-                    <TouchableOpacity 
-                      style={styles.cardBodyItem}
-                      onPress={() => Linking.openURL(`tel:${item.phone}`)}
-                      activeOpacity={0.6}
-                    >
-                      <Text style={styles.contactText}>📱 <Text style={styles.contactLink}>{item.phone}</Text></Text>
-                    </TouchableOpacity>
+                    <Text style={styles.contactText}>📱 {item.phone}</Text>
                   )}
 
-                  <View style={[styles.dateRow, styles.cardBodyItem]}>
-                    <View style={styles.dateRowIcon}>
-                      <Calendar size={14} color="#6B7280" />
-                    </View>
+                  <View style={styles.dateRow}>
+                    <Calendar size={14} color="#6B7280" />
                     <Text style={styles.dateText}>
                       Started: {new Date(item.subscriptionStartDate).toLocaleDateString()}
                     </Text>
                   </View>
 
-                  <View style={[styles.dateRow, styles.cardBodyItem]}>
-                    <View style={styles.dateRowIcon}>
-                      <Calendar size={14} color="#6B7280" />
-                    </View>
+                  <View style={styles.dateRow}>
+                    <Calendar size={14} color="#6B7280" />
                     <Text style={styles.dateText}>
                       Expires: {expiryDate.toLocaleDateString()}
                     </Text>
                   </View>
 
-                  <View style={[styles.durationRow, styles.cardBodyItem]}>
-                    <View style={styles.durationRowIcon}>
-                      <Clock size={14} color="#6B7280" />
-                    </View>
+                  <View style={styles.durationRow}>
+                    <Clock size={14} color="#6B7280" />
                     <Text style={styles.dateText}>
                       Duration: {item.subscriptionDuration}
                     </Text>
                   </View>
 
-                  {item.amountPaid !== undefined && (
-                    <View style={styles.paymentContainer}>
-                      <View style={[styles.paymentRow, styles.cardBodyItem]}>
-                        <Text style={styles.paymentLabel}>Amount Paid:</Text>
-                        <Text style={[styles.paymentValue, styles.paymentPaid]}>£{item.amountPaid.toFixed(2)}</Text>
-                      </View>
-                    </View>
-                  )}
-
                   {item.notes && (
-                    <View style={[styles.notesContainer, styles.cardBodyItem]}>
+                    <View style={styles.notesContainer}>
                       <Text style={styles.notesLabel}>Notes:</Text>
                       <Text style={styles.notesText}>{item.notes}</Text>
                     </View>
@@ -197,9 +166,7 @@ export default function HomeScreen() {
                     style={styles.deleteButton}
                     onPress={() => handleDelete(item.id, item.name)}
                   >
-                    <View style={styles.deleteButtonIcon}>
-                      <Trash2 size={16} color="#FFFFFF" />
-                    </View>
+                    <Trash2 size={16} color="#FFFFFF" />
                     <Text style={styles.deleteButtonText}>Delete Client</Text>
                   </TouchableOpacity>
                 </View>
@@ -256,13 +223,11 @@ const styles = StyleSheet.create({
   sortButton: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 6,
     backgroundColor: "#EFF6FF",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
-  },
-  sortButtonIcon: {
-    marginRight: 6,
   },
   sortButtonText: {
     fontSize: 14,
@@ -294,10 +259,8 @@ const styles = StyleSheet.create({
   nameRow: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 8,
     marginBottom: 6,
-  },
-  nameRowIcon: {
-    marginRight: 8,
   },
   clientName: {
     fontSize: 18,
@@ -319,37 +282,27 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: "row",
-  },
-  actionButton: {
-    marginLeft: 8,
+    gap: 8,
   },
   iconButton: {
     padding: 4,
   },
   cardBody: {
+    gap: 8,
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
     borderTopColor: "#F3F4F6",
   },
-  cardBodyItem: {
-    marginBottom: 8,
-  },
   contactText: {
     fontSize: 14,
     color: "#374151",
   },
-  contactLink: {
-    color: "#3B82F6",
-    textDecorationLine: "underline" as const,
-  },
   dateRow: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 6,
     marginTop: 4,
-  },
-  dateRowIcon: {
-    marginRight: 6,
   },
   dateText: {
     fontSize: 14,
@@ -358,14 +311,12 @@ const styles = StyleSheet.create({
   statusBadge: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 6,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
     alignSelf: "flex-start",
     marginTop: 4,
-  },
-  statusBadgeIcon: {
-    marginRight: 6,
   },
   statusText: {
     fontSize: 13,
@@ -388,22 +339,18 @@ const styles = StyleSheet.create({
   durationRow: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  durationRowIcon: {
-    marginRight: 6,
+    gap: 6,
   },
   deleteButton: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: 8,
     backgroundColor: "#EF4444",
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
     marginTop: 12,
-  },
-  deleteButtonIcon: {
-    marginRight: 8,
   },
   deleteButtonText: {
     fontSize: 14,
@@ -434,29 +381,5 @@ const styles = StyleSheet.create({
     color: "#9CA3AF",
     textAlign: "center",
     paddingHorizontal: 40,
-  },
-  paymentContainer: {
-    marginTop: 8,
-    paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: "#F3F4F6",
-  },
-  paymentRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  paymentLabel: {
-    fontSize: 14,
-    fontWeight: "600" as const,
-    color: "#6B7280",
-  },
-  paymentValue: {
-    fontSize: 14,
-    fontWeight: "700" as const,
-    color: "#EF4444",
-  },
-  paymentPaid: {
-    color: "#10B981",
   },
 });

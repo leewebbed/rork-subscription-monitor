@@ -16,8 +16,6 @@ export interface Client {
   subscriptionStartDate: number;
   subscriptionDuration: SubscriptionDuration;
   notes?: string;
-  amountDue?: number;
-  amountPaid?: number;
   createdAt: number;
   updatedAt: number;
 }

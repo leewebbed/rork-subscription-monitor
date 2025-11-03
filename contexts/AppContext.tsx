@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import type { Client, Category } from '@/types';
+import { scheduleNotification } from '@/utils/notifications';
 
 const STORAGE_KEYS = {
   CLIENTS: '@subscription_monitor_clients',
@@ -68,8 +69,9 @@ export const [AppProvider, useApp] = createContextHook(() => {
     }
   }, [categoriesQuery.data]);
 
-  const addClient = useCallback((client: Client) => {
+  const addClient = useCallback(async (client: Client) => {
     console.log('Adding client:', client);
+    await scheduleNotification(client);
     const updated = [...clients, client];
     saveClients(updated);
   }, [clients, saveClients]);
